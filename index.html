@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Survey Shelf</title>
+<meta name="description" content="Reading surveys on machine learning systems — one report per subject, each a stage-by-stage account of how something actually works.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<style>
+:root{
+  --ground:#E9ECF1; --surface:#FAFBFD; --surface-2:#F1F4F8; --surface-3:#E4E9F0;
+  --ink:#141922; --ink-2:#4A5462; --ink-3:#76808F;
+  --line:#D3DAE3; --line-2:#C0C9D5;
+  --accent:#2E4A7D; --accent-soft:#5C7CB0; --accent-wash:#DFE7F3;
+  --shadow:0 1px 2px rgba(20,25,34,.06),0 10px 30px -14px rgba(20,25,34,.18);
+  --fx-display:'Archivo',ui-sans-serif,system-ui,sans-serif;
+  --fx-prose:'Source Serif 4',Georgia,'Times New Roman',serif;
+  --fx-mono:'IBM Plex Mono',ui-monospace,'SF Mono',Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0F1218; --surface:#161B23; --surface-2:#1C222C; --surface-3:#232A36;
+    --ink:#E5EAF1; --ink-2:#A2ACBB; --ink-3:#78838F;
+    --line:#2A313D; --line-2:#39424F;
+    --accent:#93B2E4; --accent-soft:#6E8DC2; --accent-wash:#1E2839;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 32px -16px rgba(0,0,0,.6);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0F1218; --surface:#161B23; --surface-2:#1C222C; --surface-3:#232A36;
+  --ink:#E5EAF1; --ink-2:#A2ACBB; --ink-3:#78838F;
+  --line:#2A313D; --line-2:#39424F;
+  --accent:#93B2E4; --accent-soft:#6E8DC2; --accent-wash:#1E2839;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 32px -16px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--fx-display);
+  font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;
+  display:flex;flex-direction:column;min-height:100vh}
+.wrap{max-width:1060px;margin:0 auto;padding:0 28px;width:100%}
+@media(max-width:640px){.wrap{padding:0 18px}}
+h1,h2,h3{margin:0;font-weight:600;letter-spacing:-.02em;text-wrap:balance}
+a{color:var(--accent);text-decoration:none}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.eyebrow{font-family:var(--fx-mono);font-size:11px;font-weight:500;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-3)}
+
+.rail{border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--ground) 88%,transparent)}
+.rail-in{display:flex;align-items:center;gap:16px;height:52px}
+.mark{font-family:var(--fx-mono);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+.mark span{color:var(--accent)}
+.rail .gh{margin-left:auto;font-family:var(--fx-mono);font-size:11px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--ink-2)}
+.rail .gh:hover{color:var(--ink)}
+.tgl{border:1px solid var(--line-2);background:var(--surface);color:var(--ink-2);border-radius:99px;
+  font-family:var(--fx-mono);font-size:10.5px;letter-spacing:.08em;padding:5px 11px;cursor:pointer;
+  text-transform:uppercase}
+.tgl:hover{color:var(--ink);border-color:var(--accent-soft)}
+
+header{padding:76px 0 46px}
+header h1{font-size:clamp(36px,6vw,62px);line-height:1.03;letter-spacing:-.035em;font-weight:700;
+  max-width:15ch;margin-top:14px}
+header p{font-family:var(--fx-prose);font-size:clamp(16.5px,2vw,19px);color:var(--ink-2);
+  max-width:62ch;margin:22px 0 0;line-height:1.55}
+
+main{flex:1;padding-bottom:70px}
+.shelf{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:18px;margin-top:12px}
+
+.rep{
+  position:relative;display:flex;flex-direction:column;gap:13px;
+  background:var(--surface);border:1px solid var(--line);border-radius:4px;
+  padding:24px 24px 20px;color:inherit;transition:border-color .16s,box-shadow .16s,transform .16s
+}
+.rep:hover{border-color:var(--accent-soft);box-shadow:var(--shadow);transform:translateY(-2px)}
+@media(prefers-reduced-motion:reduce){.rep,.rep:hover{transition:none;transform:none}}
+.rep .no{font-family:var(--fx-mono);font-size:10.5px;letter-spacing:.1em;color:var(--accent);font-weight:600}
+.rep h2{font-size:21px;line-height:1.22;letter-spacing:-.025em}
+.rep .sum{font-family:var(--fx-prose);font-size:15px;line-height:1.55;color:var(--ink-2);flex:1;margin:0}
+.rep .facts{display:flex;flex-wrap:wrap;gap:6px}
+.rep .f{font-family:var(--fx-mono);font-size:10.5px;letter-spacing:.04em;color:var(--ink-2);
+  background:var(--surface-3);border:1px solid var(--line);border-radius:99px;padding:3px 9px}
+.rep .go{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  border-top:1px solid var(--line);padding-top:13px;font-family:var(--fx-mono);font-size:11px;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.rep .go .when{color:var(--ink-3);text-transform:none;letter-spacing:.03em}
+
+.soon{
+  display:flex;flex-direction:column;gap:11px;justify-content:center;
+  border:1px dashed var(--line-2);border-radius:4px;padding:24px;background:transparent;color:var(--ink-3)
+}
+.soon h2{font-size:17px;color:var(--ink-3);letter-spacing:-.015em}
+.soon p{font-family:var(--fx-prose);font-size:14.5px;margin:0;line-height:1.5}
+.soon code{font-family:var(--fx-mono);font-size:11.5px;background:var(--surface-3);
+  padding:2px 6px;border-radius:3px;color:var(--ink-2)}
+
+footer{border-top:1px solid var(--line);padding:28px 0 46px;font-family:var(--fx-mono);
+  font-size:11.5px;color:var(--ink-3);line-height:1.8}
+footer a{border-bottom:1px solid color-mix(in srgb,var(--accent) 32%,transparent)}
+</style>
+</head>
+<body>
+
+<div class="rail"><div class="wrap rail-in">
+  <div class="mark">Survey <span>Shelf</span></div>
+  <a class="gh" href="https://github.com/NeutrinoLiu/survey">GitHub ↗</a>
+  <button class="tgl" id="theme" aria-label="Switch colour theme">Theme</button>
+</div></div>
+
+<header><div class="wrap">
+  <div class="eyebrow">Reading surveys</div>
+  <h1>How things actually work, read end to end</h1>
+  <p>One report per subject. Each takes a body of recent work and reads it against a single question — not what the papers claim, but what they document, and what they leave out.</p>
+</div></header>
+
+<main><div class="wrap">
+  <div class="eyebrow">Reports</div>
+  <div class="shelf">
+
+    <a class="rep" href="robot-data-curation/index.html">
+      <div class="no">01 · Robotics</div>
+      <h2>The Curation Ledger</h2>
+      <p class="sum">Every recent robot foundation model claims to scale. Far fewer say what they threw away. A stage-by-stage reading of the pretraining data pipelines behind 47 works released since 2025 — including the ones that publish nothing at all.</p>
+      <div class="facts">
+        <span class="f">47 works</span>
+        <span class="f">2025–2026</span>
+        <span class="f">10 pipeline stages</span>
+        <span class="f">45k words</span>
+      </div>
+      <div class="go"><span>Read the report →</span><span class="when">Aug 2026</span></div>
+    </a>
+
+    <div class="soon">
+      <h2>Next report</h2>
+      <p>New surveys are added as a sibling directory with its own <code>index.html</code>, then linked from this shelf.</p>
+    </div>
+
+  </div>
+</div></main>
+
+<footer><div class="wrap">
+  <div>Source and per-report archives at <a href="https://github.com/NeutrinoLiu/survey">github.com/NeutrinoLiu/survey</a></div>
+</div></footer>
+
+<script>
+const root=document.documentElement;
+try{const t=localStorage.getItem('shelf-theme'); if(t) root.setAttribute('data-theme',t);}catch(e){}
+document.getElementById('theme').addEventListener('click',()=>{
+  const cur=root.getAttribute('data-theme');
+  const sysDark=matchMedia('(prefers-color-scheme: dark)').matches;
+  const next=cur?(cur==='dark'?'light':'dark'):(sysDark?'light':'dark');
+  root.setAttribute('data-theme',next);
+  try{localStorage.setItem('shelf-theme',next);}catch(e){}
+});
+</script>
+</body>
+</html>
