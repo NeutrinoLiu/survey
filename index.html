@@ -14,6 +14,7 @@
   --ink:#141922; --ink-2:#4A5462; --ink-3:#76808F;
   --line:#D3DAE3; --line-2:#C0C9D5;
   --accent:#2E4A7D; --accent-soft:#5C7CB0; --accent-wash:#DFE7F3;
+  --heart:#C0392B;
   --shadow:0 1px 2px rgba(20,25,34,.06),0 10px 30px -14px rgba(20,25,34,.18);
   --fx-display:'Archivo',ui-sans-serif,system-ui,sans-serif;
   --fx-prose:'Source Serif 4',Georgia,'Times New Roman',serif;
@@ -25,6 +26,7 @@
     --ink:#E5EAF1; --ink-2:#A2ACBB; --ink-3:#78838F;
     --line:#2A313D; --line-2:#39424F;
     --accent:#93B2E4; --accent-soft:#6E8DC2; --accent-wash:#1E2839;
+    --heart:#E4707C;
     --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 32px -16px rgba(0,0,0,.6);
   }
 }
@@ -33,6 +35,7 @@
   --ink:#E5EAF1; --ink-2:#A2ACBB; --ink-3:#78838F;
   --line:#2A313D; --line-2:#39424F;
   --accent:#93B2E4; --accent-soft:#6E8DC2; --accent-wash:#1E2839;
+  --heart:#E4707C;
   --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 32px -16px rgba(0,0,0,.6);
 }
 *{box-sizing:border-box}
@@ -64,6 +67,11 @@ a{color:var(--accent);text-decoration:none}
 header{padding:76px 0 46px}
 header h1{font-size:clamp(36px,6vw,62px);line-height:1.03;letter-spacing:-.035em;font-weight:700;
   max-width:15ch;margin-top:14px}
+header .credit{font-family:var(--fx-mono);font-size:12px;letter-spacing:.05em;color:var(--ink-3);
+  margin:20px 0 0;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+header .credit .hrt{color:var(--heart);font-size:13px;line-height:1}
+header .credit a{color:var(--ink-2);border-bottom:1px solid color-mix(in srgb,var(--accent) 40%,transparent)}
+header .credit a:hover{color:var(--ink);border-bottom-color:var(--accent)}
 
 main{flex:1;padding-bottom:70px}
 .shelf{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:18px;margin-top:12px}
@@ -114,6 +122,7 @@ footer a{border-bottom:1px solid color-mix(in srgb,var(--accent) 32%,transparent
 <header><div class="wrap">
   <div class="eyebrow">Reading surveys</div>
   <h1>Awesome Paper Review</h1>
+  <p class="credit">Presented by <a href="https://neutrinoliu.github.io">Bangya Liu</a> and Claude Code with <span class="hrt">&#9829;</span></p>
 </div></header>
 
 <main><div class="wrap">
