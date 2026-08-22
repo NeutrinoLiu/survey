@@ -51,9 +51,11 @@ a{color:var(--accent);text-decoration:none}
 .rail-in{display:flex;align-items:center;gap:16px;height:52px}
 .mark{font-family:var(--fx-mono);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
 .mark span{color:var(--accent)}
-.rail .gh{margin-left:auto;font-family:var(--fx-mono);font-size:11px;letter-spacing:.06em;
-  text-transform:uppercase;color:var(--ink-2)}
-.rail .gh:hover{color:var(--ink)}
+.rail .links{margin-left:auto;display:flex;align-items:center;gap:18px}
+.rail .links a{font-family:var(--fx-mono);font-size:11px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--ink-2);border-bottom:1px solid transparent;padding-bottom:1px}
+.rail .links a:hover{color:var(--ink);border-bottom-color:var(--accent)}
+@media(max-width:520px){.rail .links{gap:12px}.rail .links a{font-size:10px}}
 .tgl{border:1px solid var(--line-2);background:var(--surface);color:var(--ink-2);border-radius:99px;
   font-family:var(--fx-mono);font-size:10.5px;letter-spacing:.08em;padding:5px 11px;cursor:pointer;
   text-transform:uppercase}
@@ -104,7 +106,10 @@ footer a{border-bottom:1px solid color-mix(in srgb,var(--accent) 32%,transparent
 
 <div class="rail"><div class="wrap rail-in">
   <div class="mark">Survey <span>Shelf</span></div>
-  <a class="gh" href="https://github.com/NeutrinoLiu/survey">GitHub ↗</a>
+  <div class="links">
+    <a href="https://neutrinoliu.github.io">Home ↗</a>
+    <a href="https://github.com/NeutrinoLiu/survey">GitHub ↗</a>
+  </div>
   <button class="tgl" id="theme" aria-label="Switch colour theme">Theme</button>
 </div></div>
 
@@ -141,6 +146,7 @@ footer a{border-bottom:1px solid color-mix(in srgb,var(--accent) 32%,transparent
 
 <footer><div class="wrap">
   <div>Source and per-report archives at <a href="https://github.com/NeutrinoLiu/survey">github.com/NeutrinoLiu/survey</a></div>
+  <div>Back to <a href="https://neutrinoliu.github.io">neutrinoliu.github.io</a></div>
 </div></footer>
 
 <script>
