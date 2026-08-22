@@ -1,4 +1,4 @@
-# Survey Shelf
+# Awesome Paper Review
 
 Reading surveys on machine learning systems. One report per subject, each a
 stage-by-stage account of how something actually works — read against what the
@@ -11,6 +11,7 @@ source material documents, and what it leaves out.
 | # | Report | Subject | Scope |
 |---|--------|---------|-------|
 | 01 | [The Curation Ledger](robot-data-curation/) | Pretraining data curation for robotics foundation models | 47 works, 2025–2026 |
+| 02 | [What Touch Is Worth](tactile-2026/) | Tactile sensing for robot manipulation — what the modality actually buys | 111 works, 2026 |
 
 ## Layout
 
